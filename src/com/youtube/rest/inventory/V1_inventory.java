@@ -17,9 +17,25 @@ import org.codehaus.jettison.json.JSONArray;
 import com.youtube.dao.Oracle308tube;
 import com.youtube.util.ToJSON;
 
+/**
+ * This class is used to manage computer parts inventory.
+ * 
+ * @author 308tube
+ */
 @Path("/v1/inventory/*")
 public class V1_inventory {
 
+	/**
+	 * This method will return all computer parts that are listed
+	 * in PC_PARTS table.
+	 * 
+	 * Note: This is a good method for a tutorial but probably should never
+	 * has a method that returns everything from a database.  There should be
+	 * built in limits.
+	 * 
+	 * @return - JSON array string
+	 * @throws Exception
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response returnAllPcParts() throws Exception {

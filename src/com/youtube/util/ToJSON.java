@@ -9,6 +9,8 @@ import org.owasp.esapi.ESAPI;
 
 /**
  * This utility will convert a database data into JSON format.
+ * Note:  this java class requires the ESAPI 1.4.4 jar file
+ * ESAPI is used to encode data
  * 
  * @author 308tube
  */
@@ -18,6 +20,11 @@ public class ToJSON {
 	 * This will convert database records into a JSON Array
 	 * Simply pass in a ResultSet from a database connection and it
 	 * loop return a JSON array.
+	 * 
+	 * It important to check to make sure that all DataType that are
+	 * being used is properly encoding.
+	 * 
+	 * varchar is currently the only dataType that is being encode by ESAPI
 	 * 
 	 * @param rs - database ResultSet
 	 * @return - JSON array
@@ -80,10 +87,10 @@ public class ToJSON {
                      }
                      else if(rsmd.getColumnType(i)==java.sql.Types.VARCHAR){
                     	 
-                    	 temp = rs.getString(column_name);
-                    	 temp = ESAPI.encoder().canonicalize(temp);
-                    	 temp = ESAPI.encoder().encodeForHTML(temp);
-                    	 obj.put(column_name, temp);
+                    	 temp = rs.getString(column_name); //saving column data to temp variable
+                    	 temp = ESAPI.encoder().canonicalize(temp); //decoding data to base state
+                    	 temp = ESAPI.encoder().encodeForHTML(temp); //encoding to be browser safe
+                    	 obj.put(column_name, temp); //putting data into JSON object
                     	 
                     	 //obj.put(column_name, rs.getString(column_name));
                     	 // /*Debug*/ System.out.println("ToJson: VARCHAR");
