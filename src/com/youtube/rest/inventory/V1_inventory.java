@@ -22,11 +22,12 @@ public class V1_inventory {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String returnAllPcParts() throws Exception {
+	public Response returnAllPcParts() throws Exception {
 		
 		PreparedStatement query = null;
 		Connection conn = null;
 		String returnString = null;
+		Response rb = null;	
 		
 		try {
 			conn = Oracle308tube.Oracle308tubeConn().getConnection();
@@ -42,6 +43,7 @@ public class V1_inventory {
 			query.close(); //close connection
 			
 			returnString = json.toString();
+			rb = Response.ok(returnString).build();
 			
 		}
 		catch (Exception e) {
@@ -51,7 +53,7 @@ public class V1_inventory {
 			 if (conn != null) conn.close();
 		}
 		
-		return returnString;
+		return rb;
 	}
 	
 }
