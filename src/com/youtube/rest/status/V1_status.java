@@ -19,7 +19,7 @@ import com.youtube.dao.*;
  * @author 308tube
  *
  */
-@Path("/v1/status/*")
+@Path("/v1/status") //removed * wildcard to make this more compatible with tomcat
 public class V1_status {
 
 	private static final String api_version = "00.02.00"; //version of the api

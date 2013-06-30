@@ -6,11 +6,9 @@ import java.sql.ResultSet;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.QueryParam;
 
 import org.codehaus.jettison.json.JSONArray;
 
@@ -22,7 +20,7 @@ import com.youtube.util.ToJSON;
  * 
  * @author 308tube
  */
-@Path("/v1/inventory/*")
+@Path("/v1/inventory") //removed * wildcard to make this more compatible with tomcat
 public class V1_inventory {
 
 	/**
