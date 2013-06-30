@@ -9,6 +9,8 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONArray;
 
+import com.youtube.dao.Schema308tube;
+
 @Path("/v2/inventory")
 public class V2_inventory {
 
@@ -23,7 +25,14 @@ public class V2_inventory {
 		
 		try {
 			
+			if(brand == null) {
+				return Response.status(400).entity("Error: please specify brand for this search").build();
+			}
 			
+			Schema308tube dao = new Schema308tube();
+			
+			json = dao.queryReturnBrandParts(brand);
+			returnString = json.toString();
 			
 		}
 		catch (Exception e) {
