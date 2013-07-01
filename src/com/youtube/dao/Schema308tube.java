@@ -6,8 +6,31 @@ import org.codehaus.jettison.json.JSONArray;
 
 import com.youtube.util.ToJSON;
 
+/**
+ * This java class will hold all the sql queries from episode 5 and onward.
+ * V1_inventory.java and V1_status.java will not use this class for its sql code
+ * since they were created before episode 5.
+ * 
+ * Having all sql/database code in one package makes it easier to maintain and audit
+ * but increase complexity.
+ * 
+ * Note: we also used the extends Oracle308tube on this java class to inherit all
+ * the methods in Oracle308tube.java
+ * 
+ * @author 308tube
+ */
 public class Schema308tube extends Oracle308tube {
 
+	/**
+	 * This method will search for a specific brand from the PC_PARTS table.
+	 * By using prepareStatement and the ?, we are protecting against sql injection
+	 * 
+	 * Never add parameter straight into the prepareStatement
+	 * 
+	 * @param brand - product brand
+	 * @return - json array of the results from the database
+	 * @throws Exception
+	 */
 	public JSONArray queryReturnBrandParts(String brand) throws Exception {
 		
 		PreparedStatement query = null;
@@ -22,7 +45,7 @@ public class Schema308tube extends Oracle308tube {
 											"from PC_PARTS " +
 											"where UPPER(PC_PARTS_MAKER) = ? ");
 			
-			query.setString(1, brand.toUpperCase());
+			query.setString(1, brand.toUpperCase()); //protect against sql injection
 			ResultSet rs = query.executeQuery();
 			
 			json = converter.toJSONArray(rs);
@@ -43,6 +66,19 @@ public class Schema308tube extends Oracle308tube {
 		return json;
 	}
 	
+	/**
+	 * This method will search for the specific brand and the brands item number in
+	 * the PC_PARTS table.
+	 * 
+	 * By using prepareStatement and the ?, we are protecting against sql injection
+	 * 
+	 * Never add parameter straight into the prepareStatement
+	 * 
+	 * @param brand - product brand
+	 * @param item_number - product item number
+	 * @return - json array of the results from the database
+	 * @throws Exception
+	 */
 	public JSONArray queryReturnBrandItemNumber(String brand, int item_number) throws Exception {
 		
 		PreparedStatement query = null;
@@ -58,8 +94,13 @@ public class Schema308tube extends Oracle308tube {
 											"where UPPER(PC_PARTS_MAKER) = ? " +
 											"and PC_PARTS_CODE = ?");
 			
-			query.setString(1, brand.toUpperCase());
-			query.setInt(2, item_number);
+			/*
+			 * protect against sql injection
+			 * when you have more than one ?, it will go in chronological
+			 * order.
+			 */
+			query.setString(1, brand.toUpperCase()); //first ?
+			query.setInt(2, item_number); //second ?
 			ResultSet rs = query.executeQuery();
 			
 			json = converter.toJSONArray(rs);

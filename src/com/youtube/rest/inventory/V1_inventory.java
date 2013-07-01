@@ -18,6 +18,10 @@ import com.youtube.util.ToJSON;
 /**
  * This class is used to manage computer parts inventory.
  * 
+ * We have improved upon inventory resource in episode 5 of this tutorial series, 
+ * at this point v1/inventory should be deprecated and a date should be set 
+ * for this java class to be deleted.
+ * 
  * @author 308tube
  */
 @Path("/v1/inventory") //removed * wildcard to make this more compatible with tomcat

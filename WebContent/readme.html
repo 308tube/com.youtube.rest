@@ -45,7 +45,24 @@
 	One API resources was created in part 4: <br />
 	<a href="http://localhost:7001/com.youtube.rest/api/v1/inventory">http://localhost:7001/com.youtube.rest/api/v1/inventory</a> - <em>This url will return all the rows PC_PARTS table.</em>
 </p>
+<hr>
 
+<h2>Part #5</h2>
+<p>We increase the complexity of this project by making the dao package hold all of our SQL and database code.  We also created 
+V2_inventory to replace V1_inventory resources.  V2 is a improvement on V1.  We created three new resources in episode 5, two API resources do the same thing but in different ways.  The third API resource
+refines the search to pin point a specific product item. 
+</p>
+<p>
+	Two of the API resources are for searching on the brand but but done differently:<br />
+	The first one is by @QueryParam:<br />
+	<a href="http://localhost:7001/com.youtube.rest/api/v2/inventory?brand=ASUS">http://localhost:7001/com.youtube.rest/api/v2/inventory?brand=ASUS</a> <br />
+	The second one is by @PathParam:<br />
+	<a href="http://localhost:7001/com.youtube.rest/api/v2/inventory/ASUS">http://localhost:7001/com.youtube.rest/api/v2/inventory/ASUS</a>
+	<br /><br />
+	
+	The third api resource search by brand and item number using @PathParam:<br />
+	<a href="http://localhost:7001/com.youtube.rest/api/v2/inventory/ASUS/168131318">http://localhost:7001/com.youtube.rest/api/v2/inventory/ASUS/168131318</a>
+</p>
 
 </body>
 </html>
