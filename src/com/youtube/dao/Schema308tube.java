@@ -120,4 +120,84 @@ public class Schema308tube extends Oracle308tube {
 		
 		return json;
 	}
+	
+	/**
+	 * This method will return all PC parts.
+	 * Done pre-episode 6
+	 * 
+	 * @return - all PC parts in json format
+	 * @throws Exception
+	 */
+	public JSONArray queryAllPcParts() throws Exception {
+		
+		PreparedStatement query = null;
+		Connection conn = null;
+		
+		ToJSON converter = new ToJSON();
+		JSONArray json = new JSONArray();
+		
+		try {
+			conn = oraclePcPartsConnection();
+			query = conn.prepareStatement("select PC_PARTS_PK, PC_PARTS_TITLE, PC_PARTS_CODE, PC_PARTS_MAKER, PC_PARTS_AVAIL, PC_PARTS_DESC " +
+											"from PC_PARTS");
+			
+			ResultSet rs = query.executeQuery();
+			
+			json = converter.toJSONArray(rs);
+			query.close(); //close connection
+		}
+		catch(SQLException sqlError) {
+			sqlError.printStackTrace();
+			return json;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return json;
+		}
+		finally {
+			if (conn != null) conn.close();
+		}
+		
+		return json;
+	}
+	
+	/**
+	 * This method will return a time/stamp from database.
+	 * Done pre-episode 6
+	 * 
+	 * @return time/stamp in json format
+	 * @throws Exception
+	 */
+	public JSONArray queryCheckDbConnection() throws Exception {
+		
+		PreparedStatement query = null;
+		Connection conn = null;
+		
+		ToJSON converter = new ToJSON();
+		JSONArray json = new JSONArray();
+		
+		try {
+			conn = oraclePcPartsConnection();
+			query = conn.prepareStatement("select to_char(sysdate,'YYYY-MM-DD HH24:MI:SS') DATETIME " +
+											"from sys.dual");
+			
+			ResultSet rs = query.executeQuery();
+			
+			json = converter.toJSONArray(rs);
+			query.close(); //close connection
+		}
+		catch(SQLException sqlError) {
+			sqlError.printStackTrace();
+			return json;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return json;
+		}
+		finally {
+			if (conn != null) conn.close();
+		}
+		
+		return json;
+	}
 }

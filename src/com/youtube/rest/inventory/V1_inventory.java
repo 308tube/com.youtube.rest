@@ -1,9 +1,5 @@
 package com.youtube.rest.inventory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -12,8 +8,7 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONArray;
 
-import com.youtube.dao.Oracle308tube;
-import com.youtube.util.ToJSON;
+import com.youtube.dao.Schema308tube;
 
 /**
  * This class is used to manage computer parts inventory.
@@ -35,6 +30,8 @@ public class V1_inventory {
 	 * has a method that returns everything from a database.  There should be
 	 * built in limits.
 	 * 
+	 * Pre-episode 6, updated because Oracle308tube.java no longer accessible.
+	 * 
 	 * @return - JSON array string
 	 * @throws Exception
 	 */
@@ -42,33 +39,22 @@ public class V1_inventory {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response returnAllPcParts() throws Exception {
 		
-		PreparedStatement query = null;
-		Connection conn = null;
 		String returnString = null;
 		Response rb = null;	
+		JSONArray json = new JSONArray();
 		
 		try {
-			conn = Oracle308tube.Oracle308tubeConn().getConnection();
-			query = conn.prepareStatement("select * " +
-											"from PC_PARTS");
 			
-			ResultSet rs = query.executeQuery();
+			Schema308tube dao = new Schema308tube();
 			
-			ToJSON converter = new ToJSON();
-			JSONArray json = new JSONArray();
-			
-			json = converter.toJSONArray(rs);
-			query.close(); //close connection
-			
+			json = dao.queryAllPcParts();
 			returnString = json.toString();
+			
 			rb = Response.ok(returnString).build();
 			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
-			 if (conn != null) conn.close();
 		}
 		
 		return rb;

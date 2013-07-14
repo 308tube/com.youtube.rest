@@ -32,10 +32,13 @@ public class Oracle308tube {
 	 * I am not doing this because I do not want to break the previous code... since this
 	 * is just a tutorial project.
 	 * 
+	 * Pre-episode 6, updated this to a private scope, as it should be. That means, V1_inventory
+	 * and V1_status methods needs to be updated.
+	 * 
 	 * @return Database object
 	 * @throws Exception
 	 */
-	public static DataSource Oracle308tubeConn() throws Exception {
+	private static DataSource Oracle308tubeConn() throws Exception {
 		
 		/**
 		 * check to see if the database object is already defined...

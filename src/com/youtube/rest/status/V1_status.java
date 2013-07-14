@@ -3,7 +3,7 @@ package com.youtube.rest.status;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
-import java.sql.*;
+import org.codehaus.jettison.json.JSONArray;
 
 import com.youtube.dao.*;
 
@@ -59,6 +59,8 @@ public class V1_status {
 	 * 
 	 * This was explained in Part 3 of the Java Rest Tutorial Series on YouTube
 	 * 
+	 * Pre-episode 6, updated because Oracle308tube.java no longer accessible.
+	 * 
 	 * @return String -  returns the database date/time stamp
 	 * @throws Exception
 	 */
@@ -67,27 +69,16 @@ public class V1_status {
 	@Produces(MediaType.TEXT_HTML)
 	public String returnDatabaseStatus() throws Exception {
 		
-		PreparedStatement query = null;
 		String myString = null;
 		String returnString = null;
-		Connection conn = null;
+		JSONArray json = new JSONArray();
 		
 		try {
 			
-			conn = Oracle308tube.Oracle308tubeConn().getConnection(); //calls the method defined in the Oracle308tube package
+			Schema308tube dao = new Schema308tube();
 			
-			//simple sql query to return the date/time
-			query = conn.prepareStatement("select to_char(sysdate,'YYYY-MM-DD HH24:MI:SS') DATETIME " +
-					"from sys.dual");
-			ResultSet rs = query.executeQuery();
-			
-			//loops through the results and save it into myString
-			while (rs.next()) {
-				// /*Debug*/ System.out.println(rs.getString("DATETIME"));
-				myString = rs.getString("DATETIME");
-			}
-			
-			query.close(); //close connection
+			json = dao.queryCheckDbConnection();
+			myString = json.toString();
 			
 			returnString = "<p>Database Status</p> " +
 				"<p>Database Date/Time return: " + myString + "</p>";
@@ -95,13 +86,6 @@ public class V1_status {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-		}
-		/**
-		 * The finally cause will always run. Even if the the method get a error.
-		 * You want to make sure the connection to the database is closed.
-		 */
-		finally {
-			if (conn != null) conn.close();
 		}
 		
 		return returnString; 
