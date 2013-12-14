@@ -49,8 +49,11 @@ public class Schema308tube extends Oracle308tube {
 			/*
 			 * If this was a real application, you should do data validation here
 			 * before starting to insert data into the database.
+			 * 
+			 * Important: The primary key on PC_PARTS table will auto increment.
+			 * 		That means the PC_PARTS_PK column does not need to be apart of the 
+			 * 		SQL insert query below.
 			 */
-
 			conn = oraclePcPartsConnection();
 			query = conn.prepareStatement("insert into PC_PARTS " +
 					"(PC_PARTS_TITLE, PC_PARTS_CODE, PC_PARTS_MAKER, PC_PARTS_AVAIL, PC_PARTS_DESC) " +
