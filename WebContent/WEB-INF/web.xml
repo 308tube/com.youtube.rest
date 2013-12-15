@@ -25,4 +25,20 @@
     <url-pattern>/api/*</url-pattern>
   </servlet-mapping>
   
+  <!-- For Glassfish4, thank you youtuber techdiverdown2 -->
+  <!--
+  <servlet>
+    <servlet-name>Jersey REST Service</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>com.jbm.rest</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Jersey REST Service</servlet-name>
+    <url-pattern>/api/*</url-pattern>
+  </servlet-mapping>
+  -->
 </web-app>
