@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Rest Example: PUT</title>
+	
+	<script src="js/jquery-min.js"></script>
+	<script src="js/polyfill.js"></script>
+	<script src="js/put.js"></script>
+</head>
+<body>
+
+<h1>API Put Example</h1>
+
+<div id="get_inventory"></div>
+
+<br />
+<hr />
+
+<h1>Update Item</h1>
+
+<form id="put_example" name="put_example" action="#">
+<table border="1">
+<tr>
+	<td>PC_PARTS_MAKER</td>
+	<td id="SET_PC_PARTS_MAKER"></td>
+</tr>
+<tr>
+	<td>PC_PARTS_CODE</td>
+	<td id="SET_PC_PARTS_CODE"></td>
+</tr>
+<tr>
+	<td>PC_PARTS_TITLE</td>
+	<td id="SET_PC_PARTS_TITLE"></td>
+</tr>
+<tr>
+	<td>PC_PARTS_AVAIL</td>
+	<td><input type="text" id="SET_PC_PARTS_AVAIL" name="PC_PARTS_AVAIL"></td>
+</tr>
+<tr>
+	<td>PC_PARTS_DESC</td>
+	<td id="SET_PC_PARTS_DESC"></td>
+</tr>
+<tr>
+	<td>
+		<input type="hidden" id="SET_PC_PARTS_PK" name="PC_PARTS_PK">
+	</td>
+	<td><input type="submit" value="Submit"></td>
+</tr>
+</table>
+</form>
+
+<br />
+<div id="update_response"></div>
+
+
+<br /><br />
+</body>
+</html>
