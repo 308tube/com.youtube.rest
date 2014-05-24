@@ -22,6 +22,48 @@ import com.youtube.util.ToJSON;
 public class Schema308tube extends Oracle308tube {
 
 	/**
+	 * This method allows you to update PC_PARTS table
+	 * 
+	 * Note: there is no validation being done... if this was a real project you
+	 * must do validation here!
+	 * 
+	 * @param pk
+	 * @param avail
+	 * @return
+	 * @throws Exception
+	 */
+	public int updatePC_PARTS(int pk, int avail) throws Exception {
+		
+		PreparedStatement query = null;
+		Connection conn = null;
+		
+		try {
+			/*
+			 * If this was a real application, you should do data validation here
+			 * before updating data.
+			 */
+			
+			conn = oraclePcPartsConnection();
+			query = conn.prepareStatement("update PC_PARTS " +
+											"set PC_PARTS_AVAIL = ? " +
+											"where PC_PARTS_PK = ? ");
+			
+			query.setInt(1, avail);
+			query.setInt(2, pk);
+			query.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return 500;
+		}
+		finally {
+			if (conn != null) conn.close();
+		}
+		
+		return 200;
+	}
+	
+	/**
 	 * This method will insert a record into the PC_PARTS table. 
 	 * 
 	 * Note: there is no validation being done... if this was a real project you

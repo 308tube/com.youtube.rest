@@ -113,7 +113,7 @@ public class ToJSON {
                      }
                      else if(rsmd.getColumnType(i)==java.sql.Types.NUMERIC){
                     	 obj.put(column_name, rs.getBigDecimal(column_name));
-                    	 /*Debug*/ System.out.println("ToJson: NUMERIC");
+                    	 // /*Debug*/ System.out.println("ToJson: NUMERIC");
                       }
                      else {
                     	 obj.put(column_name, rs.getObject(column_name));
