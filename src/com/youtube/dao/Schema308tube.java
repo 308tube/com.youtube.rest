@@ -22,6 +22,46 @@ import com.youtube.util.ToJSON;
 public class Schema308tube extends Oracle308tube {
 
 	/**
+	 * This method allows you to delete a row from PC_PARTS table
+	 * 
+	 * If you need to do a delete, consider moving the data to a archive table, then
+	 * delete. Or just make the data invisible to the user.  Delete data can be
+	 * very dangerous.
+	 * 
+	 * @param pk
+	 * @return
+	 * @throws Exception
+	 */
+	public int deletePC_PARTS(int pk) throws Exception {
+		
+		PreparedStatement query = null;
+		Connection conn = null;
+		
+		try {
+			/*
+			 * If this was a real application, you should do data validation here
+			 * before deleting data.
+			 */
+			
+			conn = oraclePcPartsConnection();
+			query = conn.prepareStatement("delete from PC_PARTS " +
+											"where PC_PARTS_PK = ? ");
+			
+			query.setInt(1, pk);
+			query.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return 500;
+		}
+		finally {
+			if (conn != null) conn.close();
+		}
+		
+		return 200;
+	}
+	
+	/**
 	 * This method allows you to update PC_PARTS table
 	 * 
 	 * Note: there is no validation being done... if this was a real project you

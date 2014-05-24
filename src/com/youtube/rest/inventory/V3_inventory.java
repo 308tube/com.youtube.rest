@@ -1,6 +1,7 @@
 package com.youtube.rest.inventory;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -143,6 +144,63 @@ public class V3_inventory {
 			if(http_code == 200) {
 				jsonObject.put("HTTP_CODE", "200");
 				jsonObject.put("MSG", "Item has been updated successfully");
+			} else {
+				return Response.status(500).entity("Server was not able to process your request").build();
+			}
+			
+			returnString = jsonArray.put(jsonObject).toString();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			return Response.status(500).entity("Server was not able to process your request").build();
+		}
+		
+		return Response.ok(returnString).build();
+	}
+	
+	/**
+	 * This method will allow you to delete data in the PC_PARTS table.
+	 * 
+	 * We really only need the primary key from the message body but I kept
+	 * the same URL path as the update (PUT) to let you see that we can use the same
+	 * URL path for each http method (GET, POST, PUT, DELETE, HEAD)
+	 * 
+	 * @param brand
+	 * @param item_number
+	 * @param incomingData
+	 * @return
+	 * @throws Exception
+	 */
+	@Path("/{brand}/{item_number}")
+	@DELETE
+	@Consumes({MediaType.APPLICATION_FORM_URLENCODED,MediaType.APPLICATION_JSON})
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteItem(@PathParam("brand") String brand,
+									@PathParam("item_number") int item_number,
+									String incomingData) 
+								throws Exception {
+		
+		//System.out.println("incomingData: " + incomingData);
+		//System.out.println("brand: " + brand);
+		//System.out.println("item_number: " + item_number);
+		
+		int pk;
+		int http_code;
+		String returnString = null;
+		JSONArray jsonArray = new JSONArray();
+		JSONObject jsonObject = new JSONObject();
+		Schema308tube dao = new Schema308tube();
+		
+		try {
+			
+			JSONObject partsData = new JSONObject(incomingData);
+			pk = partsData.optInt("PC_PARTS_PK", 0);
+			
+			http_code = dao.deletePC_PARTS(pk);
+			
+			if(http_code == 200) {
+				jsonObject.put("HTTP_CODE", "200");
+				jsonObject.put("MSG", "Item has been deleted successfully");
 			} else {
 				return Response.status(500).entity("Server was not able to process your request").build();
 			}
