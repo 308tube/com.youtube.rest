@@ -7,3 +7,8 @@ http://www.youtube.com/playlist?list=PLu47tUtKqNlwfR-nqjiWUaIWOYEi9FyW0
 
 ## Website
 http://www.308tube.com/youtube/
+
+## Completed
+June 2014 - 7 episodes
+
+Thank you for your time and comments!
